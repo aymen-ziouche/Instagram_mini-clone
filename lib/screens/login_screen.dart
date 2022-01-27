@@ -53,12 +53,12 @@ class LoginScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
               child: FlatButton(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 onPressed: () {
                   Navigator.pushNamed(context, IgWebView.id);
                 },
                 child: const Text(
-                  "LOGIN",
+                  "LOGIN WITH INSTAGRAM",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
