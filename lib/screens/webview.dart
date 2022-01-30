@@ -1,11 +1,10 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:insta_details/screens/homepage.dart';
 import 'package:insta_details/utils/custom_dio_mixin.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:insta_details/constants.dart';
-import 'package:http/http.dart' as http;
 
 class IgWebView extends StatefulWidget {
   const IgWebView({Key? key}) : super(key: key);
@@ -40,11 +39,13 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
 
           if (url
               .startsWith("https://aymen-ziouche.github.io/Gaming-website/")) {
-            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, HomePage.id);
+            // Navigator.pop(context);
             var uri = Uri.parse(url);
             final String? code = uri.queryParameters["code"];
             print("this's the code: $code");
-            final response = await dio.post('/oauth/access_token', data: {
+            final response = await dio
+                .post('https://api.instagram.com/oauth/access_token', data: {
               'client_id': Constants.igClientId,
               'client_secret': Constants.igClientSecret,
               'grant_type': "authorization_code",
@@ -54,13 +55,16 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
             final storage = GetStorage();
 
             await Future.wait([
-              storage.write("accessToken", response.data["access_token"]),
-              storage.write("uid", response.data["user_id"])
+              storage.write(
+                  "accessToken", response.data["access_token"].toString()),
+              storage.write("uid", response.data["user_id"].toString())
             ]);
-            print("response => ${response.statusCode} ${response.data}");
+            // print("response => ${response.statusCode} ${response.data}");
+            print("the access Token is : " + storage.read("accessToken"));
           }
         },
       ),
     );
   }
 }
+
