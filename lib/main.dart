@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:insta_details/screens/homepage.dart';
 import 'package:insta_details/screens/login_screen.dart';
 import 'package:insta_details/screens/webview.dart';
 
 void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 

@@ -39,8 +39,8 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
 
           if (url
               .startsWith("https://aymen-ziouche.github.io/Gaming-website/")) {
-            // Navigator.pushReplacementNamed(context, HomePage.id);
-            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, HomePage.id);
+            // Navigator.pop(context);
             var uri = Uri.parse(url);
             final String? code = uri.queryParameters["code"];
             print("this's the code: $code");

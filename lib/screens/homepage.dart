@@ -53,8 +53,6 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
 
       final response = await dio.get(
         'https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp&access_token=$token',
-        options: Options(
-            contentType: Headers.formUrlEncodedContentType),
       );
       print("get data response => ${response.statusCode} ${response.data}");
     } catch (e) {
