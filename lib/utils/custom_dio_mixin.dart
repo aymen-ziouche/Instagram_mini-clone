@@ -10,7 +10,7 @@ mixin CustomDioMixin {
   static BaseOptions options = BaseOptions(
     headers: headers,
     validateStatus: (status) => true,
-    responseDecoder: (responseBytes, options, responseBody) => "",
+    responseType: ResponseType.json,
   );
   Dio dio = Dio(options);
 }

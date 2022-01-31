@@ -49,8 +49,12 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
     try {
       final storage = GetStorage();
       final token = storage.read("accessToken");
+      Media? media;
+
       final response = await dio.get(
         'https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp&access_token=$token',
+        options: Options(
+            contentType: Headers.formUrlEncodedContentType),
       );
       print("get data response => ${response.statusCode} ${response.data}");
     } catch (e) {
@@ -70,7 +74,6 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
 class MediaWidget extends StatelessWidget {
   final Media media;
   const MediaWidget({Key? key, required this.media}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GridView.builder(

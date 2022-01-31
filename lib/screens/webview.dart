@@ -30,7 +30,7 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
             Constants.igClientId +
             "&redirect_uri=" +
             Constants.igRedirectURL +
-            "&scope=user_profile,user_media &response_type=code",
+            "&scope=user_profile,user_media&response_type=code",
         onWebViewCreated: (controller) {
           this.controller = controller;
         },
@@ -39,32 +39,34 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
 
           if (url
               .startsWith("https://aymen-ziouche.github.io/Gaming-website/")) {
-            Navigator.pushReplacementNamed(context, HomePage.id);
-            // Navigator.pop(context);
+            // Navigator.pushReplacementNamed(context, HomePage.id);
+            Navigator.pop(context);
             var uri = Uri.parse(url);
             final String? code = uri.queryParameters["code"];
             print("this's the code: $code");
-            final response = await dio
-                .post('https://api.instagram.com/oauth/access_token', data: {
-              'client_id': Constants.igClientId,
-              'client_secret': Constants.igClientSecret,
-              'grant_type': "authorization_code",
-              'redirect_uri': Constants.igRedirectURL,
-              'code': code
-            });
-            final storage = GetStorage();
 
+            final response = await dio.post(
+                'https://api.instagram.com/oauth/access_token',
+                options:
+                    Options(contentType: Headers.formUrlEncodedContentType),
+                data: {
+                  'client_id': Constants.igClientId,
+                  'client_secret': Constants.igClientSecret,
+                  'grant_type': "authorization_code",
+                  'redirect_uri': Constants.igRedirectURL,
+                  'code': code,
+                });
+            print("response => ${response.statusCode} ${response.data}");
+            final storage = GetStorage();
             await Future.wait([
-              storage.write(
-                  "accessToken", response.data["access_token"].toString()),
-              storage.write("uid", response.data["user_id"].toString())
+              storage.write("accessToken", response.data["access_token"]),
+              storage.write("uid", response.data["user_id"])
             ]);
-            // print("response => ${response.statusCode} ${response.data}");
-            print("the access Token is : " + storage.read("accessToken"));
+            final String token = storage.read("accessToken");
+            print("the access Token is : $token");
           }
         },
       ),
     );
   }
 }
-
