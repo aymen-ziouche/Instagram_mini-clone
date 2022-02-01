@@ -37,7 +37,6 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
           this.controller = controller;
         },
         onPageStarted: (url) async {
-          print("url is " + url);
 
           if (url
               .startsWith("https://aymen-ziouche.github.io/Gaming-website/")) {
@@ -45,7 +44,6 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
             // Navigator.pop(context);
             var uri = Uri.parse(url);
             final String? code = uri.queryParameters["code"];
-            print("this's the code: $code");
 
             final response = await dio.post(
                 'https://api.instagram.com/oauth/access_token',
@@ -58,14 +56,11 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
                   'redirect_uri': Constants.igRedirectURL,
                   'code': code,
                 });
-            print("response => ${response.statusCode} ${response.data}");
             final storage = GetStorage();
             await Future.wait([
               storage.write("accessToken", response.data["access_token"]),
               storage.write("uid", response.data["user_id"])
             ]);
-            final String token = storage.read("accessToken");
-            print("the access Token is : $token");
           }
         },
       ),

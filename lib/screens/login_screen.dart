@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:insta_details/constants.dart';
-import 'package:insta_details/screens/homepage.dart';
 import 'package:insta_details/screens/webview.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -51,6 +50,7 @@ class LoginScreen extends StatelessWidget {
             bottom: 180,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30),
+              // ignore: deprecated_member_use
               child: FlatButton(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
