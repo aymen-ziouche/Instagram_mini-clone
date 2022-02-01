@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:insta_details/models/data.dart';
@@ -16,8 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with CustomDioMixin {
   bool loading = true;
   bool error = false;
-  late Media media;
-
+  List<Media> media = [];
   @override
   void initState() {
     super.initState();
@@ -27,20 +25,30 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: loading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : error
+      body: Column(
+        children: [
+          Expanded(
+            child: loading
                 ? const Center(
-                    child: Text('An error has occurred!'),
+                    child: CircularProgressIndicator(),
                   )
-                : ListView.builder(
-                    itemBuilder: (context, index) => MediaWidget(
-                      media: media,
-                    ),
-                  ),
+                : error
+                    ? const Center(
+                        child: Text('An error has occurred!'),
+                      )
+                    : ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          print("media n° $index ${media[index].mediaUrl}");
+                          return MediaWidget(
+                            media: media[index],
+                          );
+                        },
+                      ),
+          ),
+        ],
       ),
     );
   }
@@ -49,12 +57,14 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
     try {
       final storage = GetStorage();
       final token = storage.read("accessToken");
-      Media? media;
 
       final response = await dio.get(
         'https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp&access_token=$token',
       );
       print("get data response => ${response.statusCode} ${response.data}");
+      if (response.statusCode.toString().startsWith('2')) {
+        media = Medias.fromMap(response.data).data;
+      }
     } catch (e) {
       print("get data failed");
       print(e);
@@ -70,18 +80,25 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
 }
 
 class MediaWidget extends StatelessWidget {
-  final Media media;
+  final Media? media;
   const MediaWidget({Key? key, required this.media}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+    return SizedBox(
+      height: 500,
+      width: 500,
+      child: GridView.builder(
+        shrinkWrap: true, //
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+        ),
+        itemBuilder: (context, index) {
+          return media != null && media!.mediaUrl != ""
+              ? Image.network(media!.mediaUrl)
+              : SizedBox.shrink();
+        },
       ),
-      itemCount: 6,
-      itemBuilder: (context, index) {
-        return Image.network(media.mediaUrl);
-      },
     );
   }
 }
+// well, as u can see i cant get the media url. it's null. why is that happenning?
