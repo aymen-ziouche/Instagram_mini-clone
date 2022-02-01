@@ -1,16 +1,7 @@
-# insta_details
+# Instagram details
 
-A new Flutter project.
+A simple flutter app that shows your least 6 Instagram posts with caption and id
 
-## Getting Started
+## Images
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://user-images.githubusercontent.com/46304263/152062054-b46eb2cc-a1ed-4057-9261-613bc643eb25.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/46304263/152062108-d518e7c6-8545-48cd-8363-78de57441076.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/46304263/152062120-c87811e0-1c2f-4dda-913b-66f4b328aa24.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/46304263/152062133-e73df90b-07ff-4526-a3f1-a8cd26673d78.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/46304263/152062138-bcc169c4-e580-4210-992f-5a1357ef53a7.png" width="45%"></img>
