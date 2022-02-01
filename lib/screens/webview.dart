@@ -10,8 +10,10 @@ class IgWebView extends StatefulWidget {
   const IgWebView({Key? key}) : super(key: key);
   static String id = "IgWebView";
 
+
   @override
   _IgWebViewState createState() => _IgWebViewState();
+
 }
 
 class _IgWebViewState extends State<IgWebView> with CustomDioMixin {

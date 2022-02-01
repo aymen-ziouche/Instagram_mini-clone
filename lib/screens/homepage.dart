@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
   bool loading = true;
   bool error = false;
   List<Media> media = [];
+
   @override
   void initState() {
     super.initState();
@@ -37,14 +38,84 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
                         child: Text('An error has occurred!'),
                       )
                     : ListView.builder(
+                        itemCount: 6,
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: 6,
                         itemBuilder: (context, index) {
-                          print("media n° $index ${media[index].mediaUrl}");
-                          return MediaWidget(
-                            media: media[index],
-                          );
+                          // print("media n° $index ${media[index].mediaUrl}");
+                          // return media != null && media[index].mediaUrl != ""
+                          //     ? Image.network(media[index].mediaUrl)
+                          //     : SizedBox.shrink();
+                          return media[index].mediaUrl != ""
+                              ? Stack( 
+                                  children: [
+                                    Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 100,
+                                        ),
+                                        Card(
+                                          elevation: 8,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(32)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(32.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Image.network(
+                                                    media[index].mediaUrl),
+                                                Text(
+                                                  "the caption: ${media[index].caption}",
+                                                  style: const TextStyle(
+                                                    fontSize: 35,
+                                                    color: Color(0xFF414C6B),
+                                                    fontWeight: FontWeight.w900,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                                Text(
+                                                  "media ID ${media[index].id}",
+                                                  style: const TextStyle(
+                                                    fontSize: 23,
+                                                    color: Color(0xFF414C6B),
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                                const SizedBox(
+                                                  height: 32,
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      media[index].timestamp,
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        color:
+                                                            Color(0xFFE4979E),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      textAlign: TextAlign.left,
+                                                    ),
+                                                    const Icon(
+                                                      Icons.timer,
+                                                      color: Color(0xFFE4979E),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox.shrink();
                         },
                       ),
           ),
@@ -56,6 +127,7 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
   Future<void> getData() async {
     try {
       final storage = GetStorage();
+
       final token = storage.read("accessToken");
 
       final response = await dio.get(
@@ -78,27 +150,3 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
     }
   }
 }
-
-class MediaWidget extends StatelessWidget {
-  final Media? media;
-  const MediaWidget({Key? key, required this.media}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 500,
-      width: 500,
-      child: GridView.builder(
-        shrinkWrap: true, //
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-        ),
-        itemBuilder: (context, index) {
-          return media != null && media!.mediaUrl != ""
-              ? Image.network(media!.mediaUrl)
-              : SizedBox.shrink();
-        },
-      ),
-    );
-  }
-}
-// well, as u can see i cant get the media url. it's null. why is that happenning?
