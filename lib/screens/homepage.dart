@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return media[index].mediaUrl != ""
-                              ? Stack( 
+                              ? Stack(
                                   children: [
                                     Column(
                                       children: [
