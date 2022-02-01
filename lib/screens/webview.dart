@@ -44,7 +44,7 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
             // Navigator.pop(context);
             var uri = Uri.parse(url);
             final String? code = uri.queryParameters["code"];
-
+            // getting the access token from the api (exchanging the code for an access token)
             final response = await dio.post(
                 'https://api.instagram.com/oauth/access_token',
                 options:
@@ -56,6 +56,9 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
                   'redirect_uri': Constants.igRedirectURL,
                   'code': code,
                 });
+            
+
+            // storing the access token in the device memory
             final storage = GetStorage();
             await Future.wait([
               storage.write("accessToken", response.data["access_token"]),

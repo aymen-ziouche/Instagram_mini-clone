@@ -42,10 +42,6 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          // print("media n° $index ${media[index].mediaUrl}");
-                          // return media != null && media[index].mediaUrl != ""
-                          //     ? Image.network(media[index].mediaUrl)
-                          //     : SizedBox.shrink();
                           return media[index].mediaUrl != ""
                               ? Stack( 
                                   children: [
@@ -124,10 +120,12 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
     );
   }
 
+  // getting the media fields (id,caption,mediaurl and timestamp) from the graph api using the access token we stored earlier
+
   Future<void> getData() async {
     try {
       final storage = GetStorage();
-
+      // getting the access token from the device memory
       final token = storage.read("accessToken");
 
       final response = await dio.get(
