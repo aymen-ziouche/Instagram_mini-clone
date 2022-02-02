@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
                         child: Text('An error has occurred!'),
                       )
                     : ListView.builder(
-                        itemCount: 6,
+                        itemCount: media.length < 6 ? media.length : 6,
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
