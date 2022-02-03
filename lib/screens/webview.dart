@@ -10,10 +10,8 @@ class IgWebView extends StatefulWidget {
   const IgWebView({Key? key}) : super(key: key);
   static String id = "IgWebView";
 
-
   @override
   _IgWebViewState createState() => _IgWebViewState();
-
 }
 
 class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
@@ -21,11 +19,6 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        foregroundColor: Colors.purpleAccent,
-      ),
       body: WebView(
         javascriptMode: JavascriptMode.unrestricted,
         initialUrl: "https://api.instagram.com/oauth/authorize?client_id=" +
@@ -37,7 +30,6 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
           this.controller = controller;
         },
         onPageStarted: (url) async {
-
           if (url
               .startsWith("https://aymen-ziouche.github.io/Gaming-website/")) {
             Navigator.pushReplacementNamed(context, HomePage.id);
@@ -56,7 +48,6 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
                   'redirect_uri': Constants.igRedirectURL,
                   'code': code,
                 });
-            
 
             // storing the access token in the device memory
             final storage = GetStorage();

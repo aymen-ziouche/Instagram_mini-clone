@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
                                     Column(
                                       children: [
                                         const SizedBox(
-                                          height: 100,
+                                          height: 50,
                                         ),
                                         Card(
                                           elevation: 8,
@@ -59,23 +59,31 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
                                             padding: const EdgeInsets.all(32.0),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Image.network(
                                                     media[index].mediaUrl),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
                                                 Text(
-                                                  "the caption: ${media[index].caption}",
+                                                  media[index].caption,
+                                                  maxLines: 1,
+                                                  softWrap: false,
                                                   style: const TextStyle(
-                                                    fontSize: 35,
+                                                    fontSize: 20,
                                                     color: Color(0xFF414C6B),
-                                                    fontWeight: FontWeight.w900,
+                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                   textAlign: TextAlign.left,
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
                                                 ),
                                                 Text(
                                                   "media ID ${media[index].id}",
                                                   style: const TextStyle(
-                                                    fontSize: 23,
+                                                    fontSize: 12,
                                                     color: Color(0xFF414C6B),
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -85,11 +93,14 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
                                                   height: 32,
                                                 ),
                                                 Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
                                                   children: <Widget>[
                                                     Text(
                                                       media[index].timestamp,
                                                       style: const TextStyle(
-                                                        fontSize: 18,
+                                                        fontSize: 15,
                                                         color:
                                                             Color(0xFFE4979E),
                                                         fontWeight:
@@ -106,7 +117,10 @@ class _HomePageState extends State<HomePage> with CustomDioMixin {
                                               ],
                                             ),
                                           ),
-                                        )
+                                        ),
+                                        const SizedBox(
+                                          height: 50,
+                                        ),
                                       ],
                                     ),
                                   ],
