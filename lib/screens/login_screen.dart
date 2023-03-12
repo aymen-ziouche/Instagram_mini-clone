@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30),
               // ignore: deprecated_member_use
-              child: FlatButton(
+              child: MaterialButton(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 onPressed: () {
