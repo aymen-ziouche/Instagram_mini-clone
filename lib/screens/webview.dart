@@ -55,7 +55,7 @@ class _IgWebViewState extends State<IgWebView> with CustomDioMixin {
               storage.write("accessToken", response.data["access_token"]),
               storage.write("uid", response.data["user_id"])
             ]);
-              print(storage.read("accessToken"));
+            print(storage.read("accessToken"));
           }
         },
       ),
