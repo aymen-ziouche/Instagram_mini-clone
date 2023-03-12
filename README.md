@@ -1,4 +1,4 @@
-# Instagram details
+# Instagram mini-clone
 
 A simple flutter app that shows your least 6 Instagram posts with caption and id
 
